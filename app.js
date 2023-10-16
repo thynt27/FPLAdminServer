@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const userAPIRouter=require('./routes/api/UserApi');
+
 var app = express();
 
 // view engine setup
@@ -31,6 +33,11 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+//api
+
+//http:localhost:3000/api/user
+app.use('/api/user',userAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
