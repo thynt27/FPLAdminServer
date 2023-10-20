@@ -7,11 +7,11 @@ const UploadFile = require('../../middle/UploadFile');
 // api get all report
 router.get('/get-all', [], async (req, res, next) => {
     try {
-        const products = await ReportController.getAllReport();
-        return res.status(200).json({ result: true, products: products });
+        const reports = await ReportController.getAllReport();
+        return res.status(200).json({ result: true, reports: reports });
     } catch (error) {
         console.log("Get all error: ", error);
-        return res.status(500).json({ result: false, products: null });
+        return res.status(500).json({ result: false, reports: null });
     }
 });
 // http://localhost:3000/api/report/get-by-id?id=
@@ -19,22 +19,22 @@ router.get('/get-all', [], async (req, res, next) => {
 router.get('/get-by-id', async (req, res, next) => {
     try {
         const { id } = req.query;
-        const product = await ReportController.getReportById(id);
-        return res.status(200).json({ result: true, product: product });
+        const report = await ReportController.getReportById(id);
+        return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Get by id error: ", error);
-        return res.status(500).json({ result: false, product: null });
+        return res.status(500).json({ result: false, report: null });
     }
 });
 // http://localhost:3000/api/report/delete-by-id/:id
 router.delete('/delete-by-id/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
-        const products = await ReportController.deleteReportById(id);
-        return res.status(200).json({ result: true, products: products });
+        const reports = await ReportController.deleteReportById(id);
+        return res.status(200).json({ result: true, reports: reports });
 
     } catch (error) {
-        return res.status(500).json({ result: false, products: null });
+        return res.status(500).json({ result: false, reports: null });
     }
 });
 // http://localhost:3000/api/report/add-new
@@ -67,11 +67,11 @@ router.post('/edit-new/:id', [UploadFile.single('image')], async (req, res, next
             body = { ...body, image: file };
         }
         const {room, image, rating, description,date, Incident_id, User_id } = body;
-        const product = await ReportController.updateReporttById(id, room, image, rating, description,date, Incident_id, User_id                                                                                                                    );
-        return res.status(200).json({ result: true, product: product });
+        const report = await ReportController.updateReporttById(id, room, image, rating, description,date, Incident_id, User_id                                                                                                                    );
+        return res.status(200).json({ result: true, report: product });
     } catch (error) {
         console.log("Edit new product error: ", error);
-        return res.status(500).json({ result: false, product: null });
+        return res.status(500).json({ result: false, report: null });
     }
 });
 // http://localhost:3000/api/report/upload-image
