@@ -11,6 +11,10 @@ var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
+const userRouter = require('./routes/cpanel/userCpanel');
+
+
 var app = express();
 
 // view engine setup
@@ -31,6 +35,8 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/cpanel/useCpanel', userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
