@@ -14,7 +14,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 //api
-const reporttAPIRouter=require('./routes/api/ReportApi');
+const reportAPIRouter=require('./routes/api/ReportApi');
+const incidentAPIRouter=require('./routes/api/IncidentApi');
 
 var app = express();
 
@@ -39,7 +40,10 @@ app.use('/users', usersRouter);
 
 //Dành cho API
 //http:localhost:3000/api/report
-app.use('/api/report',reporttAPIRouter);
+app.use('/api/report',reportAPIRouter);
+//http:localhost:3000/api/incident
+app.use('/api/incident',incidentAPIRouter);
+
 
 
 // catch 404 and forward to error handler

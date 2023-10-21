@@ -7,16 +7,19 @@ const reportSchema = new Schema({
     id: { type: ObjectId },
     room: { type: String },
     image: { type: String },
-    rating:
-    {
-        rating_description: String,
-        rating_date: { type: Date, default: Date.now }
-    },
-    status_report:{type:String},
+    verificationToken: String,
+    rating: 
+    
+        {
+            rating_description: String,
+            rating_date: { type: Date, default: Date.now }
+        },
+    
+    status_report: { type: String },
     description: { type: String },
     date: { type: Date, default: Date.now },
-    incident: {type: ObjectId, ref: 'incident'}, //khoá ngoại
-    User_id:{type: ObjectId, ref: 'user'}, //khoá ngoại
+    incident: { type: ObjectId, ref: 'incident' }, //khoá ngoại
+    user: { type: ObjectId, ref: 'user' }, //khoá ngoại
 
 
 });

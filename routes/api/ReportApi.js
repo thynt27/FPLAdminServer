@@ -5,7 +5,7 @@ const UploadFile = require('../../middle/UploadFile');
 
 // http://localhost:3000/api/report/get-all
 // api get all report
-router.get('/get-all', [], async (req, res, next) => {
+router.get('/get-all', async (req, res, next) => {
     try {
         const reports = await ReportController.getAllReport();
         return res.status(200).json({ result: true, reports: reports });
@@ -46,8 +46,8 @@ router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => 
             file = `http://192.168.1.94:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
-        const { room, image, rating, description, date,incident,User_id} = body;
-        const report = await ReportController.addNewReport(room, image, rating, description, date,incident,User_id);
+        const { room, image, rating,status_report, description, date,incident,user} = body;
+        const report = await ReportController.addNewReport(room, image, rating,status_report, description, date,incident,user);
         return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Add new Report error: ", error);
@@ -66,9 +66,9 @@ router.post('/edit-new/:id', [UploadFile.single('image')], async (req, res, next
             file = `http://192.168.1.94:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
-        const {room, image, rating, description,date, Incident_id, User_id } = body;
-        const report = await ReportController.updateReporttById(id, room, image, rating, description,date, Incident_id, User_id                                                                                                                    );
-        return res.status(200).json({ result: true, report: product });
+        const {room, image, rating,status_report, description,date, incident, user } = body;
+        const report = await ReportController.updateReporttById(id, room, image, rating,status_report, description,date, incident, user                                                                                                                    );
+        return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Edit new product error: ", error);
         return res.status(500).json({ result: false, report: null });

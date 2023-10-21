@@ -3,7 +3,7 @@ const ReportModel = require('./ReportModel');
 
 const getAllReport = async () => {
   try {
-    return await ReportModel.find().populate('incident','name_incident');
+    return await ReportModel.find().populate('incident','name_incident ');
   } catch (error) {
     console.log('Get all reports error', error);
     throw error;
@@ -28,9 +28,9 @@ const deleteReportById = async (id) => {
   }
 
 }
-const addNewReport = async (room, image, rating, description, date, incident, User_id) => {
+const addNewReport = async (room, image, rating,status_report, description, date, incident, user) => {
   try {
-    const newReport = { room, image, rating, description, date, incident,User_id }
+    const newReport = { room, image, rating,status_report, description, date, incident,user }
     const p = new ReportModel(newReport);
     await p.save();
     return true;
@@ -39,16 +39,17 @@ const addNewReport = async (room, image, rating, description, date, incident, Us
     return false;
   }
 }
-const updateReporttById = async (id, room, image, rating, description, incident, User_id) => {
+const updateReporttById = async (id, room, image, rating,status_report, description, incident, user) => {
   try {
     const item = await ReportModel.findById(id);
     if (item) {
       item.room = room ? room : item.room;
       item.image = image ? image : item.image;
       item.rating = rating ? rating : item.rating;
+      item.status_report = status_report ? status_report : item.status_report;
       item.description = description ? description : item.description;
       item.incident = incident ? incident : item.incident;
-      item.User_id = User_id ? User_id : item.User_id;
+      item.user = user ? user : item.user;
       await item.save();
       return true;
     }

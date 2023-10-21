@@ -25,16 +25,16 @@ const deleteReportById = async (id) => {
    
 }
 
-const addNewReport = async(room, image, rating, description, date,incident,User_id)=>{
+const addNewReport = async(room, image, rating,status_report, description, date,incident,user)=>{
     try {
-        return await ReportService.addNewReport(room, image, rating, description, date,incident,User_id);
+        return await ReportService.addNewReport(room, image, rating,status_report, description, date,incident,user);
     } catch (error) {
         return false;
     }
 }
-const updateReporttById = async(id, room, image, rating, description,incident, User_id)=>{
+const updateReporttById = async(id, room, image, rating,status_report, description,incident, user)=>{
     try {
-        return await ReportService.updateReporttById(id, room, image, rating, description, incident, User_id);
+        return await ReportService.updateReporttById(id, room, image, rating,status_report, description, incident, user);
     } catch (error) {
         console.log(error);
         return false;
