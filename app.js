@@ -9,9 +9,11 @@ var mongoose = require('mongoose');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 const userAPIRouter=require('./routes/api/UserApi');
+
+const userRouter = require('./routes/cpanel/userCpanel');
+
 
 var app = express();
 
@@ -33,6 +35,8 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/cpanel/useCpanel', userRouter);
+
 
 //api
 
