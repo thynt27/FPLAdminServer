@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 //Config mongoose
 var mongoose = require('mongoose');
+require('./components/Incident/IncidentModel');
+require('./components/Report/ReportModel');
 
 
 var indexRouter = require('./routes/index');
@@ -15,6 +17,9 @@ const userAPIRouter=require('./routes/api/UserApi');
 
 const userRouter = require('./routes/cpanel/userCpanel');
 
+//api
+const reportAPIRouter=require('./routes/api/ReportApi');
+const incidentAPIRouter=require('./routes/api/IncidentApi');
 
 var app = express();
 
@@ -31,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Connect database
 mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connect database successfully'))
-  .catch((err) => console.log('Connect database failed'));
+  .catch((err) => console.log('Connect database failed', err));
 
 
 app.use('/', indexRouter);
@@ -43,6 +48,14 @@ app.use('/cpanel/useCpanel', userRouter);
 
 //http:localhost:3000/api/user
 app.use('/api/user',userAPIRouter);
+
+//Dành cho API
+//http:localhost:3000/api/report
+app.use('/api/report',reportAPIRouter);
+//http:localhost:3000/api/incident
+app.use('/api/incident',incidentAPIRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
