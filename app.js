@@ -13,6 +13,9 @@ var usersRouter = require('./routes/users');
 
 const userAPIRouter=require('./routes/api/UserApi');
 
+const userRouter = require('./routes/cpanel/userCpanel');
+
+
 var app = express();
 
 // view engine setup
@@ -33,6 +36,8 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/cpanel/useCpanel', userRouter);
+
 
 //api
 
