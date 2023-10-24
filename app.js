@@ -34,7 +34,7 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 app.use('/cpanel/useCpanel', userRouter);
 
 

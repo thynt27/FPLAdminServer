@@ -8,7 +8,7 @@ const userSchema = new Schema({
     email: { type: String },
     password: { type: String },
     role:{type: Number,default:1},
-    //1:user,100:adim,1000:system
+    //1:user,100:admin,1000:system
     //1,2
     //or xor and not
 });
