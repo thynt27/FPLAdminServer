@@ -13,9 +13,12 @@ require('./components/Report/ReportModel');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 //api
 const reportAPIRouter=require('./routes/api/ReportApi');
 const incidentAPIRouter=require('./routes/api/IncidentApi');
+const userAPIRouter=require('./routes/api/UserApi');
+
 
 var app = express();
 
@@ -43,7 +46,8 @@ app.use('/users', usersRouter);
 app.use('/api/report',reportAPIRouter);
 //http:localhost:3000/api/incident
 app.use('/api/incident',incidentAPIRouter);
-
+//http:localhost:3000/api/user
+app.use('/api/user',userAPIRouter);
 
 
 // catch 404 and forward to error handler
