@@ -26,7 +26,7 @@ router.post('/login',async(req,res,next)=>{
             }
             return res.status(200).json(returnData);
         }else{
-            return res.status(400).json({result:false,user:null});
+            return res.status(400).json({result:false,user:null, message:"Email or password is incorrect"});
         }
         
     } catch (error) {
@@ -45,7 +45,50 @@ router.post('/register',async(req,res,next)=>{
         {
             return res.status(200).json({result:true,user:user});
         }else{
-            return res.status(400).json({result:false,user:null,message:'111'});
+            return res.status(400).json({result:false,user:null,message:'Register fail'});
+        }
+        
+    } catch (error) {
+        console.log(error);
+        next(error);//danh cho web
+        return res.status(500).json({result:false,message:'loi he thong'});
+        
+    }
+});
+
+// http://localhost:3000/api/user/addUser
+//Add new user
+router.post('/addUser',async(req,res,next)=>{
+    try {
+        const {email,password,name,image, role}=req.body;
+        const user=await userController.newUser(email,password,name,image, role);
+       
+
+        if(user)
+        {
+            return res.status(200).json({result:true,user:user});
+        }else{
+            return res.status(400).json({result:false,user:null,message:'Register account fail'});
+        }
+        
+    } catch (error) {
+        console.log(error);
+        next(error);//danh cho web
+        return res.status(500).json({result:false,message:'loi he thong'});
+        
+    }
+});
+
+//http://localhost:3000/api/user/getAllUser
+//Get all user
+router.get('/getAllUser',async(req,res,next)=>{
+    try {
+        const users = await userController.getAllUser();
+        if(users)
+        {
+            return res.status(200).json({result:true,users:users});
+        }else{
+            return res.status(400).json({result:false,users:null,message:'Get all user fail'});
         }
         
     } catch (error) {
