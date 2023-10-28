@@ -13,12 +13,13 @@ require('./components/Report/ReportModel');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const userAPIRouter=require('./routes/api/UserApi');
+
+const userRouter = require('./routes/cpanel/userCpanel');
 
 //api
 const reportAPIRouter=require('./routes/api/ReportApi');
 const incidentAPIRouter=require('./routes/api/IncidentApi');
-const userAPIRouter=require('./routes/api/UserApi');
-
 
 var app = express();
 
@@ -40,14 +41,20 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/cpanel/useCpanel', userRouter);
+
+
+//api
+
+//http:localhost:3000/api/user
+app.use('/api/user',userAPIRouter);
 
 //Dành cho API
 //http:localhost:3000/api/report
 app.use('/api/report',reportAPIRouter);
 //http:localhost:3000/api/incident
 app.use('/api/incident',incidentAPIRouter);
-//http:localhost:3000/api/user
-app.use('/api/user',userAPIRouter);
+
 
 
 // catch 404 and forward to error handler
