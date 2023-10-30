@@ -7,11 +7,11 @@ const UploadFile = require('../../middle/UploadFile');
 // api get all report
 router.get('/get-all', async (req, res, next) => {
     try {
-        const reports = await ReportController.getAllReport();
-        return res.status(200).json({ result: true, reports: reports });
+        const report = await ReportController.getAllReport();
+        return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Get all error: ", error);
-        return res.status(500).json({ result: false, reports: null });
+        return res.status(500).json({ result: false, report: null });
     }
 });
 // http://localhost:3000/api/report/get-by-id?id=
