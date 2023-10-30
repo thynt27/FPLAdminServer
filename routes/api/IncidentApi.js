@@ -27,5 +27,22 @@ router.get('/get-by-id', async (req, res, next) => {
     }
 });
 
+//api add incident
+//http://localhost:3000/api/incident/add-incident
+router.post('/add-incident', async (req, res, next)=>{
+    try {
+        const {name_incident} = req.body;
+        const incident = await IncidentController.addIncident(name_incident);
+        if(incident){
+            return res.status(200).json({ result: true, incident: name_incident});
+        }else{
+            return res.status(400).json({result: false, incident: null});
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({result: false, message: 'Lỗi hệ thống'});
+    }
+})
+
 
 module.exports = router;

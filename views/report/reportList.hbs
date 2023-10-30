@@ -242,9 +242,9 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-     
 
-     
+
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -253,10 +253,10 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    
-                        <i class="bi bi-circle"></i><span><a href="/">Manage User</a></span>
-                        <i class="bi bi-circle"></i><span><a href="/report">Manage Report</a></span>
-                        <i class="bi bi-circle"></i><span><a href="/list">Manage Incidents</a></span>
+
+                    <i class="bi bi-circle"></i><span><a href="/">Manage User</a></span>
+                    <i class="bi bi-circle"></i><span><a href="/report">Manage Report</a></span>
+                    <i class="bi bi-circle"></i><span><a href="/list">Manage Incidents</a></span>
 
 
                 </li>
@@ -303,7 +303,7 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <a href="/newReport" class="btn btn-primary mb-3 " >Tạo báo cáo sự cố</a>
+    <a href="/newReport" class="btn btn-primary mb-3 ">Tạo báo cáo sự cố</a>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -325,36 +325,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{!-- {{#each products}} --}}
+                                {{#each reports}}
                                 <tr>
-                                    {{!-- <td>{{this.name}}</td>
-                                    <td>{{this.price}}</td>
-                                    <td>{{this.quantity}}</td>
+                                    <td>{{this.room}}</td>
+                                    <td>Cơ sở vật chất</td>
+                                    <td>{{this.date}}</td>
+                                    <td>09:30</td>
+                                    <td>{{this.description}}</td>
                                     <td>
                                         <img src="{{this.image}}" alt="" width="100" height="100">
                                     </td>
-                                    <td>{{this.category}}</td>
                                     <td>
-                                        <a href="/cpanel/productCpanel/{{this._id}}/edit"
-                                            class="btn btn-primary">Edit</a>
-                                        <a onclick="confirmDelete('{{this._id}}')" class="btn btn-danger">Delete</a>
-                                    </td> --}}
-                                    <td>T1010</td>
-                                    <td>Cơ sở vật chất</td>
-                                    <td>12/09/2023</td>
-                                    <td>09:30</td>
-                                    <td>Ghế gãy, bàn lung lay</td>
-                                    <td>
-                                        <img src="img/incedent.jpg" alt="" width="100" height="100">
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-primary">Yêu cầu</span>
-                                        <span class="badge bg-warning">Đã tiếp nhận</span>
-                                        <span class="badge bg-success">Hoàn thành</span>
-                                        <span class="badge bg-danger">Bị hủy</span>
+                                        {{this.status_report}}
                                     </td>
                                 </tr>
-                                {{!-- {{/each}} --}}
+                                {{/each}}
                             </tbody>
                         </table>
                         <!-- End Table with hoverable rows -->
@@ -408,5 +393,15 @@
                 }
             });
     }
+    reports.forEach(report => {
+        // Lấy trạng thái từ báo cáo
+        const status = report.status_report;
+
+        // Tìm span tương ứng với trạng thái và hiển thị nó
+        const statusBadge = document.getElementById(`status-badge-${status}`);
+        if (statusBadge) {
+            statusBadge.style.display = "inline"; // Hiển thị span tương ứng với trạng thái
+        }
+    });
 
 </script>
