@@ -15,7 +15,7 @@ const reportSchema = new Schema({
             rating_date: { type: Date, default: Date.now }
         },
     
-    status_report: { type: ObjectId,ref:'status'},
+    status_report: { type: ObjectId,default:"653b8409900c3796a66d6640",ref:'status'},
     description: { type: String },
     date: { type: Date, default: Date.now },
     receiver:{type:String},
