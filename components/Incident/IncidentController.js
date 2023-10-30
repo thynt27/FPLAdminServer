@@ -6,15 +6,23 @@ const getAllIncident = async () => {
     } catch (error) {
         throw error;
     }
-    
+
 }
-const getIncidentById = async(id)=>{
+const getIncidentById = async (id) => {
     try {
         return await IncidentService.getIncidentById(id);
-    } catch (error) { 
+    } catch (error) {
         return null;
     }
 }
 
+const addIncident = async (name_incident) => {
+    try {
+        return await IncidentService.addIncident(name_incident);
+    } catch (error) {
+        throw error;
+    }
+}
 
-module.exports = { getAllIncident,getIncidentById}
+
+module.exports = { getAllIncident, getIncidentById, addIncident }

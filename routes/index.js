@@ -1,62 +1,54 @@
 var express = require('express');
 var router = express.Router();
-
-const userController = require('../components/user/UserController')
-const jwt=require('jsonwebtoken');
-
+const userController = require('../components/user/UserController');
+const IncidentController = require('../components/Incident/IncidentController');
+const ReportController = require('../components/Report/ReportController');
+const upLoadFile = require('../middle/UploadFile');
 /* GET home page. */
-router.get('/', function(req, res, next){
-  res.render('index');
+
+/* USER */
+router.get('/', async (req, res, next) => {
+  const users = await userController.getAllUser();
+  res.render('index', { users });
 });
-
-//localhost:3000/login
-router.get('/login', function(req, res, next) {
-  res.render('user/login', { title: 'FPLAdmin' });
-});
-
-router.post('/login',async(req,res,next)=>{
-  try {
-      const {email,password}=req.body;
-      const user=await userController.login(email,password);
-      if(user)
-      {
-          // tao token
-          const token=jwt.sign({user},'secret',{expiresIn: '1h'});
-          req.session.token = token;
-          return res.redirect('/');
-      }else{
-          return res.redirect('/login');
-      }
-      
-  } catch (error) {
-      console.log(error);
-      next(error);//danh cho web
-      return res.status(500).json({result:false,message:'loi he thong'});
-  }
-});
-
-
-router.get('/newUser', function(req, res, next) {
+router.get('/newUser', function (req, res, next) {
   res.render('user/newUser', { title: 'FPLAdmin' });
 });
 
-router.get('/register', function(req, res, next) {
+//localhost:3000/login
+router.get('/login', function (req, res, next) {
+  res.render('user/login', { title: 'FPLAdmin' });
+});
+router.get('/register', function (req, res, next) {
   res.render('user/register', { title: 'FPLAdmin' });
 });
 
-router.get('/list', function(req, res, next) {
-  res.render('incidents/list', { title: 'FPLAdmin' });
+
+/* INCIDENT */
+router.get('/list', async (req, res, next) => {
+  try {
+    const incidents = await IncidentController.getAllIncident();
+    res.render('incidents/list', { incidents });
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get('/report', function(req, res, next) {
-  res.render('report/reportList', { title: 'FPLAdmin' });
+/* REPORT */
+router.get('/report', async (req, res, next) => {
+  try {
+    const reports = await ReportController.getAllReport();
+    console.log(reports);
+    res.render('report/reportList', { reports: reports });
+  } catch (error) {
+    console.log("Get all error: ", error);
+    next(error);
+  }
+  //res.render('report/reportList', { title: 'FPLAdmin' });
 });
 
-router.get('/newReport', function(req, res, next) {
+router.get('/newReport', function (req, res, next) {
   res.render('report/newReport', { title: 'FPLAdmin' });
 });
-
-
-
 
 module.exports = router;

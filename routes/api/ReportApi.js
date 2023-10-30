@@ -67,12 +67,12 @@ router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => 
     try {
         let { file, body } = req;
         if (file) {
-            file = `http://192.168.101.47:3000/images/${file.filename}`;
+            file = `http://10.22.39.52:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
         const { room, image, rating,status_report, description, date,incident,user} = body;
         const report = await ReportController.addNewReport(room, image, rating,status_report, description, date,incident,user);
-        return res.status(200).json({ result: true, report: report });
+        return res.status(200).json({ result: true, report: body });
     } catch (error) {
         console.log("Add new Report error: ", error);
         return res.status(500).json({ result: false, report: null });

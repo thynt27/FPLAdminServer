@@ -1,5 +1,7 @@
 const userModel = require('./UserModel');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
+
 
 //1. kiem tra email,password
 //2. kiem tra email co ton tai trong database khong
@@ -57,7 +59,7 @@ const register = async (email, password, name) => {
 
 }
 
-const newUser = async (email, password, name, image, role) => {
+const newUser = async (name, email, password, role, image) => {
     try {
         // kiem tra email da co hnay chua
         // select * form users where email=email
@@ -68,23 +70,30 @@ const newUser = async (email, password, name, image, role) => {
         }
         let roleNumber;
 
-        if (role == "GV") {
+        if (role === "GV") {
             roleNumber = 1;
-        } else if (role == "IT") {
+        } else if (role === "IT") {
             roleNumber = 100;
-        } else if (role == "ADMIN") {
+        } else if (role === "ADMIN") {
             roleNumber = 1000;
         }
         // them moi user vao data
         // ma hoa password
-        var salt = bcrypt.genSaltSync(10);
-        var hash = bcrypt.hashSync(password, salt);
-        const newUser = { email: email, password: hash, name: name, image: image, role: roleNumber };
+        var salt =  bcrypt.genSaltSync(10);
+        var hash =  bcrypt.hashSync(password, salt);
+        const newUser = {
+            name: name,
+            email: email,
+            password: hash,
+            role: roleNumber,
+            image: image
+        };
         const u = new userModel(newUser);
         await u.save();
+        console.log(newUser);
         return true;
     } catch (error) {
-        console('register error: ', error);
+        console.log('register error: ', error);
     }
 }
 

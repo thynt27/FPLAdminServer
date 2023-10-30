@@ -241,58 +241,54 @@
                         <h5 class="card-title">General Form Elements</h5>
 
                         <!-- General Form Elements -->
-                        <form method="POST" action="api/user/addUser" >
+                        <form method="POST" action="/cpanel/userCpanel/newUser" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-label">Họ và tên</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" name="name" id="name" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" class="form-control" name="email" id="email" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control" name="password" id="password" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                                <label for="formFile" class="col-sm-2 col-form-label">File Upload</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" name="image" type="file" id="formFile">
                                 </div>
                             </div>
                             <fieldset class="row mb-3">
-                                <label class="col-form-label col-sm-2 pt-0" for="role">Vai trò</label>
+                                <label class="col-form-label col-sm-2 pt-0">Vai trò</label>
                                 <div class="col-sm-10">
-                                    <div class="form-check" >
-                                        <input class="form-check-input" type="radio" 
-                                           id="GV" name="role" value="GV" required checked>
-                                        <label class="form-check-label" for="gridRadios1">
-                                            Giảng viên
-                                        </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="GV" name="role" value="GV"
+                                            required checked>
+                                        <label class="form-check-label" for="GV">Giảng viên</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" 
-                                            id="IT" name="role" value="IT" required>
-                                        <label class="form-check-label" for="gridRadios2">
-                                            IT
-                                        </label>
+                                        <input class="form-check-input" type="radio" id="IT" name="role" value="IT"
+                                            required>
+                                        <label class="form-check-label" for="IT">IT</label>
                                     </div>
                                 </div>
                             </fieldset>
 
                             <div class="row mb-3">
                                 <div class="col-sm-10">
-                                   <Button type="submit" class="btn btn-primary">Thêm mới</Button>
+                                    <button type="submit" class="btn btn-primary">Thêm mới</button>
                                 </div>
                             </div>
-                           
-                        </form><!-- End General Form Elements -->
+                        </form>
+                        <!-- End General Form Elements -->
 
                     </div>
                 </div>
