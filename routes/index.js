@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const userController = require('../components/user/UserController')
+const jwt=require('jsonwebtoken');
+
 /* GET home page. */
 router.get('/', function(req, res, next){
   res.render('index');
@@ -10,6 +13,28 @@ router.get('/', function(req, res, next){
 router.get('/login', function(req, res, next) {
   res.render('user/login', { title: 'FPLAdmin' });
 });
+
+router.post('/login',async(req,res,next)=>{
+  try {
+      const {email,password}=req.body;
+      const user=await userController.login(email,password);
+      if(user)
+      {
+          // tao token
+          const token=jwt.sign({user},'secret',{expiresIn: '1h'});
+          req.session.token = token;
+          return res.redirect('/');
+      }else{
+          return res.redirect('/login');
+      }
+      
+  } catch (error) {
+      console.log(error);
+      next(error);//danh cho web
+      return res.status(500).json({result:false,message:'loi he thong'});
+  }
+});
+
 
 router.get('/newUser', function(req, res, next) {
   res.render('user/newUser', { title: 'FPLAdmin' });
