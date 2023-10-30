@@ -15,9 +15,10 @@ const reportSchema = new Schema({
             rating_date: { type: Date, default: Date.now }
         },
     
-    status_report: { type: String },
+    status_report: { type: ObjectId,ref:'status'},
     description: { type: String },
     date: { type: Date, default: Date.now },
+    receiver:{type:String},
     incident: { type: ObjectId, ref: 'incident' }, //khoá ngoại
     user: { type: ObjectId, ref: 'user' }, //khoá ngoại
 

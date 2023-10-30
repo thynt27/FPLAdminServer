@@ -20,7 +20,7 @@ const userRouter = require('./routes/cpanel/userCpanel');
 //api
 const reportAPIRouter=require('./routes/api/ReportApi');
 const incidentAPIRouter=require('./routes/api/IncidentApi');
-
+const statusAPIRputer=require('./routes/api/StatusApi');
 var app = express();
 
 // view engine setup
@@ -54,7 +54,8 @@ app.use('/api/user',userAPIRouter);
 app.use('/api/report',reportAPIRouter);
 //http:localhost:3000/api/incident
 app.use('/api/incident',incidentAPIRouter);
-
+//http:localhost:3000/api/incident
+app.use('/api/status',statusAPIRputer);
 
 
 // catch 404 and forward to error handler
