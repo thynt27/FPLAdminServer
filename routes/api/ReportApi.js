@@ -26,6 +26,30 @@ router.get('/get-by-id', async (req, res, next) => {
         return res.status(500).json({ result: false, report: null });
     }
 });
+// http://localhost:3000/api/report/get-by-iduser?user=
+// api get report by iduser
+router.get('/get-by-iduser', async (req, res, next) => {
+    try {
+        const { user } = req.query;
+        const report = await ReportController.getReportByIduser(user);
+        return res.status(200).json({ result: true, report: report });
+    } catch (error) {
+        console.log("Get by iduser error: ", error);
+        return res.status(500).json({ result: false, report: null });
+    }
+});
+// http://localhost:3000/api/report/get-by-idstatus?status=
+// api get report by status
+router.get('/get-by-idstatus', async (req, res, next) => {
+    try {
+        const { status } = req.query;
+        const report = await ReportController.getReportByIdstatus(status);
+        return res.status(200).json({ result: true, report: report });
+    } catch (error) {
+        console.log("Get by idstatus error: ", error);
+        return res.status(500).json({ result: false, report: null });
+    }
+});
 // http://localhost:3000/api/report/delete-by-id/:id
 router.delete('/delete-by-id/:id', async (req, res, next) => {
     try {
@@ -43,7 +67,9 @@ router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => 
     try {
         let { file, body } = req;
         if (file) {
+
             file = `http://10.22.39.52:3000/images/${file.filename}`;
+
             body = { ...body, image: file };
         }
         const { room, image, rating,status_report, description, date,incident,user} = body;
@@ -63,11 +89,11 @@ router.post('/edit-new/:id', [UploadFile.single('image')], async (req, res, next
         let { file, body } = req;
         let { id } = req.params;
         if (file) {
-            file = `http://192.168.1.94:3000/images/${file.filename}`;
+            file = `http://192.168.101.47:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
-        const {room, image, rating,status_report, description,date, incident, user } = body;
-        const report = await ReportController.updateReporttById(id, room, image, rating,status_report, description,date, incident, user                                                                                                                    );
+        const {room, image, rating,status_report, description,reciver, incident, user } = body;
+        const report = await ReportController.updateReporttById(id, room, image, rating,status_report, description,reciver, incident, user                                                                                                                    );
         return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Edit new product error: ", error);
@@ -80,7 +106,7 @@ router.post('/upload-image', [UploadFile.single('image')], async (req, res, next
     try {
         const { file } = req;
         if (file) {
-            const link = `http://192.168.1.94:3000/images/${file.filename}`;
+            const link =`http://192.168.101.47:3000/images/${file.filename}`;
             return res.status(200).json({ result: true, link: link });
         }
 
@@ -100,7 +126,7 @@ router.post('/upload-images', [UploadFile.array('image', 2)], async (req, res, n
             const links = [];
             for (let index = 0; index < files.length; index++) {
                 const element = files[index];
-                links.push = `http://192.168.1.94:3000/images/${element.filename}`;
+                links.push = `http://192.168.101.47:3000/images/${element.filename}`;
             }
 
             return res.status(200).json({ result: true, links: links });
