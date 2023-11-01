@@ -118,44 +118,16 @@
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="/imgz`/messages-1.jpg" class="rounded-circle">
-                            <div>
-                                <h4>Maria Hudson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
+
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="/public/img/messages-2.jpg" alt="" class="rounded-circle">
-                            <div>
-                                <h4>Anna Nelson</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>6 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li class="message-item">
-                        <a href="#">
-                            <img src="/public/img/messages-3.jpg" alt="" class="rounded-circle">
-                            <div>
-                                <h4>David Muldon</h4>
-                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                <p>8 hrs. ago</p>
-                            </div>
-                        </a>
-                    </li>
+
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -320,7 +292,7 @@
 
                                     <td>
                                         <a class="btn btn-primary">Edit</a>
-                                        <a class="btn btn-danger">Delete</a>
+                                        <a onclick="confirmDelete('{{this._id}}')" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 {{/each}}
@@ -342,28 +314,33 @@
         return res.json();
     }
 
-    const deleteProduct = async (_id) => {
-        const url = `/cpanel/productCpanel/${_id}/delete`;
+    const deleteUser = async (id) => {
+        const url = `http://localhost:3000/cpanel/userCpanel/deleteUser/${id}`;
         const option = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
-        try {
-            const res = await fetchAPI(url, option);
-            if (res.result) {
+        const res = await fetchAPI(url, option);
+        if (res.status) {
+            swal("Xóa thành công!", {
+                icon: "success",
+
+            });
+            setTimeout(function () {
                 window.location.reload();
-            }
-            else {
-                swal("Lỗi!", "Không thể xóa sản phẩm này!", "error");
-            }
-        }
-        catch (err) {
-            console.log(err);
-            swal("Lỗi!", "Không thể xóa sản phẩm này!", "error");
+            }, 1000);
+           
+        } else {
+            swal("Xóa thất bại!", {
+                icon: "error",
+            });
+           
         }
     }
 
-    const confirmDelete = (_id) => {
+    const confirmDelete = (id) => {
         swal({
             title: "Xác nhận xóa",
             text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
@@ -373,7 +350,7 @@
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    deleteProduct(_id);
+                    deleteUser(id);
                 }
             });
     }

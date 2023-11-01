@@ -16,5 +16,9 @@ const getAllUser = async () => {
     return await userService.getAllUser();
 }
 
+const deleteUser = async (id) => {
+    return await userService.deleteUser(id);
+}
 
-module.exports = { login, register, newUser, getAllUser };
+
+module.exports = { login, register, newUser, getAllUser, deleteUser };

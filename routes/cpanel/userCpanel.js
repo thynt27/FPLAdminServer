@@ -9,7 +9,7 @@ router.post('/newUser',
     try {
       let { body, file } = req;
       if (file) {
-        file = `http://10.22.39.52:3000/images/${file.filename}`
+        file = `http://192.168.1.7:3000/images/${file.filename}`
         body = { ...body, image: file };
       }
       const { name, email, password, role, image } = body;
@@ -26,6 +26,23 @@ router.post('/newUser',
       next(error);
     }
   })
+
+
+// delete user by id
+// localhost:3000/cpanel/userCpanel/deleteUser/:id
+router.get('/deleteUser/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await userController.deleteUser(id);
+    if (result) {
+      return res.json({status : true});
+    } else {
+      return res.json({ status: false });
+    }
+  } catch (error) {
+    next(error);
+  }
+})
 
 
 

@@ -17,10 +17,12 @@ const incidentRouter = require('./routes/cpanel/incidentCpanel');
 const reportRouter = require('./routes/cpanel/reportCpanel');
 
 
+
 //api
 const userAPIRouter=require('./routes/api/UserApi');
 const reportAPIRouter=require('./routes/api/ReportApi');
 const incidentAPIRouter=require('./routes/api/IncidentApi');
+const statusAPIRputer=require('./routes/api/StatusApi');
 
 var app = express();
 
@@ -41,7 +43,6 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/cpanel/userCpanel', userRouter);
 app.use('/cpanel/incidentCpanel', incidentRouter);
 app.use('/cpanel/reportCpanel', reportRouter);

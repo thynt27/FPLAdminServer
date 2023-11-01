@@ -107,4 +107,14 @@ const getAllUser = async () => {
     return null;
 
 }
-module.exports = { login, register, newUser, getAllUser };
+
+const deleteUser = async (id) => {
+    try {
+        const user = await userModel.findByIdAndDelete(id);
+        return user;
+    } catch (error) {
+        console.log('deleteUserById error: ', error);
+    }
+    return null;
+}
+module.exports = { login, register, newUser, getAllUser, deleteUser };
