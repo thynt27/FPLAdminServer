@@ -35,7 +35,7 @@ router.get('/deleteUser/:id', async (req, res, next) => {
     const { id } = req.params;
     const result = await userController.deleteUser(id);
     if (result) {
-      return res.json({status : true});
+      return res.json({ status: true });
     } else {
       return res.json({ status: false });
     }
@@ -45,6 +45,38 @@ router.get('/deleteUser/:id', async (req, res, next) => {
 })
 
 
+// disable user account 
+// localhost:3000/cpanel/userCpanel/disable/:id
+router.put('/disable/:id', async (req, res, next) => {
+  try {
+    //const { email } = req.params;
+    const {id} =req.params;
+    const user = await userController.disableAccount(id);
+    if (user) {
+        return res.json ({ status: true  })
+    } else {
+        return res.json ({ status: false })
+    }
+} catch (error) {
+    console.log(error)
+    return res.status(500).json({ result: false, user: null })
+}
+});
+
+
+router.put('/enable/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await userController.enableAccount(id);
+    if (user) {
+      return res.json ({ status: true  })
+    } else {
+      return res.json ({ status: false })
+    }
+  } catch (error) {
+    return res.status(500).json({ result: false, user: null })
+  }
+});
 
 
 

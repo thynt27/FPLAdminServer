@@ -285,13 +285,18 @@
                                 <tr>
                                     <td>{{this.name}}</td>
                                     <td>{{this.email}}</td>
-                                    <td>{{this.role}}</td>
+                                    <td> {{this.role}}
+                                    </td>
                                     <td>
                                         <img src="{{this.image}}" alt="" width="100" height="100">
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-primary">Edit</a>
+                                        {{#if this.isActive}}
+                                        <button class="btn btn-primary" onclick="disableAccount('{{this._id}}')">Inactive</button>
+                                        {{else}}
+                                        <button  class="btn btn-success" onclick="enableAccount('{{this._id}}')">Active</button>
+                                        {{/if}}
                                         <a onclick="confirmDelete('{{this._id}}')" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
@@ -314,6 +319,8 @@
         return res.json();
     }
 
+
+
     const deleteUser = async (id) => {
         const url = `http://localhost:3000/cpanel/userCpanel/deleteUser/${id}`;
         const option = {
@@ -331,12 +338,12 @@
             setTimeout(function () {
                 window.location.reload();
             }, 1000);
-           
+
         } else {
             swal("Xóa thất bại!", {
                 icon: "error",
             });
-           
+
         }
     }
 
@@ -353,6 +360,59 @@
                     deleteUser(id);
                 }
             });
+    }
+
+    const disableAccount = async (id) => {
+        const url = `http://localhost:3000/cpanel/userCpanel/disable/${id}`;
+        const option = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await fetchAPI(url, option);
+        if (res.status) {
+            swal("Vô hiệu hóa thành công!", {
+                icon: "success",
+
+            });
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+
+        } else {
+            swal("Vô hiệu hóa thất bại!", {
+                icon: "error",
+            });
+            console.log(res);
+
+        }
+    }
+
+    const enableAccount = async (id) => {
+        const url = `http://localhost:3000/cpanel/userCpanel/enable/${id}`;
+        const option = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await fetchAPI(url, option);
+        if (res.status) {
+            swal("Kích hoạt thành công!", {
+                icon: "success",
+
+            });
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+
+        } else {
+            swal("Kích hoạt thất bại!", {
+                icon: "error",
+            });
+
+        }
     }
 
 </script>

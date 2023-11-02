@@ -20,5 +20,12 @@ const deleteUser = async (id) => {
     return await userService.deleteUser(id);
 }
 
+const disableAccount = async (id) => {
+    return await userService.disableAccount(id);
+}
 
-module.exports = { login, register, newUser, getAllUser, deleteUser };
+const enableAccount = async (id) => {
+    return await userService.enableAccount(id);
+}
+
+module.exports = { login, register, newUser, getAllUser, deleteUser, disableAccount, enableAccount };

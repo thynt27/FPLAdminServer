@@ -21,7 +21,7 @@ const reportSchema = new Schema({
     receiver:{type:String},
     incident: { type: ObjectId, ref: 'incident' }, //khoá ngoại
     user: { type: ObjectId, ref: 'user' }, //khoá ngoại
-
+    
 
 });
 
