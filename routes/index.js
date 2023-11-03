@@ -47,6 +47,10 @@ router.get('/report', async (req, res, next) => {
   //res.render('report/reportList', { title: 'FPLAdmin' });
 });
 
+router.get('/statistic', async (req, res, next) => {
+   res.render('report/statistic', { title: 'FPLAdmin' });
+});
+
 router.get('/newReport', function (req, res, next) {
   res.render('report/newReport', { title: 'FPLAdmin' });
 });
