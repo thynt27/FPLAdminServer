@@ -3,7 +3,10 @@ const ReportModel = require('./ReportModel');
 
 const getAllReport = async () => {
   try {
-    return await ReportModel.find().populate('incident','name_incident ');
+    return await ReportModel.find().populate('incident','name_incident ') 
+    .populate('user','name')
+    .populate('status_report','name_status')
+    .sort({ formattedDate: 1 });
   } catch (error) {
     console.log('Get all reports error', error);
     throw error;
@@ -11,10 +14,31 @@ const getAllReport = async () => {
 }
 const getReportById = async (id) => {
   try {
-    return await ReportModel.findById(id)
+    return await ReportModel.findById(id).populate('incident','name_incident ').populate('status_report','name_status')  .populate('user','name')
 
   } catch (error) {
     console.log('Get reports by id error', error);
+    return null;
+  }
+}
+const getReportByIduser = async (user) => {
+  try {
+    return await ReportModel.find({user:user}).populate('incident','name_incident ').populate('status_report','name_status')
+
+  } catch (error) {
+    console.log('Get reports by iduser error', error);
+    return null;
+  }
+}
+const getReportByIdstatus = async (status) => {
+  try {
+    return await ReportModel.find({status_report:status})
+    .populate('incident','name_incident ')
+    .populate('status_report','name_status') 
+    .populate('user','name')
+
+  } catch (error) {
+    console.log('Get reports by idstatus error', error);
     return null;
   }
 }
@@ -39,7 +63,7 @@ const addNewReport = async (room, image, rating,status_report, description, date
     return false;
   }
 }
-const updateReporttById = async (id, room, image, rating,status_report, description, incident, user) => {
+const updateReporttById = async (id, room, image, rating,status_report, description,receiver,incident, user) => {
   try {
     const item = await ReportModel.findById(id);
     if (item) {
@@ -48,6 +72,7 @@ const updateReporttById = async (id, room, image, rating,status_report, descript
       item.rating = rating ? rating : item.rating;
       item.status_report = status_report ? status_report : item.status_report;
       item.description = description ? description : item.description;
+      item.receiver = receiver ? receiver : item.receiver;
       item.incident = incident ? incident : item.incident;
       item.user = user ? user : item.user;
       await item.save();
@@ -62,4 +87,4 @@ const updateReporttById = async (id, room, image, rating,status_report, descript
 
 
 
-module.exports = { getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById }
+module.exports = { getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById,getReportByIduser ,getReportByIdstatus}

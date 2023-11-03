@@ -12,18 +12,22 @@ router.post('/login', async (req, res, next) => {
         const { email, password } = req.body;
         const user = await userController.login(email, password);
         if (user) {
-            // tao token
-            const token = jwt.sign({ user }, 'secret', { expiresIn: '1h' });
-            const returnData = {
-                error: false,
-                responseTimestamp: new Date(),
-                statusCode: 200,
-                data: {
-                    token: token,
-                    user: user
+            if (user.isActive) {
+                // tao token
+                const token = jwt.sign({ user }, 'secret', { expiresIn: '1h' });
+                const returnData = {
+                    error: false,
+                    responseTimestamp: new Date(),
+                    statusCode: 200,
+                    data: {
+                        token: token,
+                        user: user
+                    }
                 }
+                return res.status(200).json(returnData);
+            } else {
+                return res.status(400).json({ result: false, user: null, message: "Account is disabled" });
             }
-            return res.status(200).json(returnData);
         } else {
             return res.status(400).json({ result: false, user: null, message: "Email or password is incorrect" });
         }

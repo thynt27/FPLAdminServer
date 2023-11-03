@@ -15,7 +15,20 @@ const getReportById = async(id)=>{
         return null;
     }
 }
-
+const getReportByIduser = async(user)=>{
+    try {
+        return await ReportService.getReportByIduser(user);
+    } catch (error) { 
+        return null;
+    }
+}
+const getReportByIdstatus = async(status)=>{
+    try {
+        return await ReportService.getReportByIdstatus(status);
+    } catch (error) { 
+        return null;
+    }
+}
 const deleteReportById = async (id) => {
     try {
         return await ReportService.deleteReportById(id);
@@ -32,13 +45,13 @@ const addNewReport = async(room, image, rating,status_report, description, date,
         return false;
     }
 }
-const updateReporttById = async(id, room, image, rating,status_report, description,incident, user)=>{
+const updateReporttById = async(id, room, image, rating,status_report, description,receiver,incident, user)=>{
     try {
-        return await ReportService.updateReporttById(id, room, image, rating,status_report, description, incident, user);
+        return await ReportService.updateReporttById(id, room, image, rating,status_report, description,receiver,incident, user);
     } catch (error) {
         console.log(error);
         return false;
     }
 }
 
-module.exports = { getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById}
+module.exports = { getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus}
