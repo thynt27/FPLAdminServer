@@ -3,9 +3,10 @@ const ReportModel = require('./ReportModel');
 
 const getAllReport = async () => {
   try {
-    return await ReportModel.find().populate('incident','name_incident ')
+    return await ReportModel.find().populate('incident','name_incident ') 
     .populate('user','name')
-    .populate('status_report','name_status');
+    .populate('status_report','name_status')
+    .sort({ formattedDate: 1 });
   } catch (error) {
     console.log('Get all reports error', error);
     throw error;

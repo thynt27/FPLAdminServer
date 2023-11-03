@@ -249,14 +249,14 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                        <i class="bi bi-circle"></i><span><a href="/">Manage User</a></span>
-                        <i class="bi bi-circle"></i><span><a href="/report">Manage Report</a></span>
-                        <i class="bi bi-circle"></i><span><a href="/list">Manage Incidents</a></span>
+                    <i class="bi bi-circle"></i><span><a href="/">Manage User</a></span>
+                    <i class="bi bi-circle"></i><span><a href="/report">Manage Report</a></span>
+                    <i class="bi bi-circle"></i><span><a href="/list">Manage Incidents</a></span>
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
 
-      
+
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
@@ -326,7 +326,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="section">
         <div class="row">
             <div class="col-lg-8">
@@ -346,7 +346,7 @@
                             <tbody>
                                 {{#each incidents}}
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{@index}}</td>
                                     <td>{{this.name_incident}}</td>
                                     <td>
                                         <a class="btn btn-primary">Chỉnh sửa</a>
@@ -355,6 +355,7 @@
                                 </tr>
                                 {{/each}}
                             </tbody>
+
                         </table>
                         <!-- End Table with hoverable rows -->
 
@@ -407,5 +408,8 @@
                 }
             });
     }
+
+
+
 
 </script>

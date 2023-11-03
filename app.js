@@ -48,6 +48,7 @@ app.use('/cpanel/incidentCpanel', incidentRouter);
 app.use('/cpanel/reportCpanel', reportRouter);
 
 
+
 //api
 
 //http:localhost:3000/api/user
