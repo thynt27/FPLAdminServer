@@ -8,6 +8,9 @@ const UploadFile = require('../../middle/UploadFile');
 router.get('/get-all', async (req, res, next) => {
     try {
         const report = await ReportController.getAllReport();
+        report.sort((a, b) => {
+            return new Date(b.formattedDate) - new Date(a.formattedDate);
+        });
         return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Get all error: ", error);

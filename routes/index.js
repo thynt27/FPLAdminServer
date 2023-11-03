@@ -37,7 +37,8 @@ router.get('/list', async (req, res, next) => {
 /* REPORT */
 router.get('/report', async (req, res, next) => {
   try {
-    const reports = await ReportController.getAllReport();
+    const reports = await ReportController.getAllReport();    
+    reports.reverse();
     console.log(reports);
     res.render('report/reportList', { reports: reports });
   } catch (error) {

@@ -21,6 +21,7 @@ const login = async (email, password) => {
 
         if (user) {
             const result = bcrypt.compareSync(password, user.password);
+            user.isLogin = true;
             return result ? user : false;
         }
 
@@ -79,8 +80,8 @@ const newUser = async (name, email, password, role, image) => {
         }
         // them moi user vao data
         // ma hoa password
-        var salt =  bcrypt.genSaltSync(10);
-        var hash =  bcrypt.hashSync(password, salt);
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(password, salt);
         const newUser = {
             name: name,
             email: email,
@@ -107,4 +108,46 @@ const getAllUser = async () => {
     return null;
 
 }
-module.exports = { login, register, newUser, getAllUser };
+
+const deleteUser = async (id) => {
+    try {
+        const user = await userModel.findByIdAndDelete(id);
+        return user;
+    } catch (error) {
+        console.log('deleteUserById error: ', error);
+    }
+    return null;
+}
+
+const disableAccount = async (id) => {
+    try {
+        const user = await userModel.findByIdAndUpdate(id);
+        if (user) {
+            user.isActive = false;
+            console.log(user.isActive);
+            await user.save();
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+
+    }
+}
+
+const enableAccount = async (id) => {
+    try {
+        const user = await userModel.findByIdAndUpdate(id);
+        if (user) {
+            user.isActive = true;
+            await user.save();
+            return true;
+        } else {
+            return false;
+        }
+    }catch (error) {
+        console.log('enableAccount error: ', error);
+    }
+}
+
+module.exports = { login, register, newUser, getAllUser, deleteUser, disableAccount,  enableAccount };

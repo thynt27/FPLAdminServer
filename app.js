@@ -11,17 +11,19 @@ require('./components/Report/ReportModel');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 const userRouter = require('./routes/cpanel/userCpanel');
 const incidentRouter = require('./routes/cpanel/incidentCpanel');
 const reportRouter = require('./routes/cpanel/reportCpanel');
+
+
 
 //api
 const userAPIRouter=require('./routes/api/UserApi');
 const reportAPIRouter=require('./routes/api/ReportApi');
 const incidentAPIRouter=require('./routes/api/IncidentApi');
 const statusAPIRputer=require('./routes/api/StatusApi');
+
 var app = express();
 
 // view engine setup
@@ -41,10 +43,10 @@ mongoose.connect('mongodb+srv://ServerFPLAdmin:!23456@severfpladmin.hdh9gyu.mong
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/cpanel/userCpanel', userRouter);
 app.use('/cpanel/incidentCpanel', incidentRouter);
 app.use('/cpanel/reportCpanel', reportRouter);
+
 
 
 //api
