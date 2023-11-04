@@ -43,49 +43,80 @@ const getReportByIdstatus = async (status) => {
   }
 }
 
-const getReportByDate = async (report_date) => {
+const getReportByDate = async () => {
   try {
-    return await ReportModel.find({ report_date: report_date })
-      .populate('incident', 'name_incident ')
-      .populate('status_report', 'name_status')
-      .populate('user', 'name')
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
+    const reports = await ReportModel.find({
+      date: {
+        $gte: sevenDaysAgo,
+        $lt: new Date(),
+      }
+    })
+    .populate('incident', 'name_incident')
+    .populate('status_report', 'name_status')
+    .populate('user', 'name');
+
+    const result = reports.map(report => {
+      return {
+        nameIncident: report.incident.name_incident,
+        reportDate: report.date,
+        statusReport: report.status_report.name_status,
+        userName: report.user.name
+      };
+    });
+
+    return result;
   } catch (error) {
-    console.log('Get reports by date error', error);
+    console.log('Get reports in the last 7 days error', error);
+    throw error;
+  }
+}
+
+const getReportByMonth = async () => {
+  try {
+    const currentYear = 2023; 
+    const currentMonth = 11;  
+
+    const startOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01T00:00:00.000Z`;
+    const endOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-31T23:59:59.999Z`;
+
+    const reports = await ReportModel.find({
+      date: {
+        $gte: new Date(startOfMonth),
+        $lte: new Date(endOfMonth),
+      }
+    })
+    .populate('incident', 'name_incident')
+    .populate('status_report', 'name_status')
+    .populate('user', 'name');
+
+    const result = reports.map(report => {
+      return {
+        nameIncident: report.incident.name_incident,
+        reportDate: report.date,
+        statusReport: report.status_report.name_status,
+        userName: report.user.name
+      };
+    });
+
+    return result;
+  } catch (error) {
+    console.log('Get reports by month error', error);
     throw error;
   }
 }
 
 
-// const getReportCountByStatus = async () => {
-//   try {
-//     const reportCounts = await ReportModel.aggregate([
-//       {
-//         $group: {
-//           _id: `$status_report`,
-//           count: { $sum: 1 }
-//         }
-//       }
-//     ]);
 
-//     const result = {};
-//     reportCounts.forEach((count) => {
-//       result[count._id] = count.count;
-//     });
-
-//     return result;
-//   } catch (error) {
-//     console.log('Get report counts by status error', error);
-//     throw error;
-//   }
-// }
 
 const getReportCountByStatus = async () => {
   try {
-    const reportCounts = await ReportModel.aggregate([
+    const statusCounts = await ReportModel.aggregate([
       {
         $lookup: {
-          from: 'status', // Tên của bảng chứa thông tin trạng thái
+          from: 'status', 
           localField: 'status_report',
           foreignField: '_id',
           as: 'statusInfo'
@@ -96,14 +127,14 @@ const getReportCountByStatus = async () => {
       },
       {
         $group: {
-          _id: '$statusInfo.name_status', // Sử dụng tên trạng thái thay vì ID
+          _id: '$statusInfo.name_status', 
           count: { $sum: 1 }
         }
       }
     ]);
 
     const result = {};
-    reportCounts.forEach((count) => {
+    statusCounts.forEach((count) => {
       result[count._id] = count.count;
     });
 
@@ -114,43 +145,11 @@ const getReportCountByStatus = async () => {
   }
 }
 
-// const getReportCountByIncident = async () => {
-//   try {
-//     const reportCounts = await ReportModel.aggregate([
-//       {
-//         $lookup: {
-//           from: 'incidents', // Tên của bảng chứa thông tin loại report
-//           localField: 'incident',
-//           foreignField: '_id',
-//           as: 'incidentInfo'
-//         }
-//       },
-//       {
-//         $unwind: '$incidentInfo'
-//       },
-//       {
-//         $group: {
-//           _id: '$incidentInfo.name_incident', // Sử dụng tên loại report thay vì ID
-//           count: { $sum: 1 }
-//         }
-//       }
-//     ]);
 
-//     const result = {};
-//     reportCounts.forEach((count) => {
-//       result[count._id] = count.count;
-//     });
-
-//     return result;
-//   } catch (error) {
-//     console.log('Get report counts by incident error', error);
-//     throw error;
-//   }
-// }
 
 const getReportCountByIncident = async () => {
   try {
-    const reportCounts = await ReportModel.aggregate([
+    const incidentCounts = await ReportModel.aggregate([
       {
         $lookup: {
           from: 'incidents',
@@ -162,19 +161,19 @@ const getReportCountByIncident = async () => {
       {
         $unwind: {
           path: '$incidentInfo',
-          preserveNullAndEmptyArrays: true // Đảm bảo bao gồm cả các loại sự cố không có báo cáo
+          preserveNullAndEmptyArrays: true 
         }
       },
       {
         $group: {
-          _id: '$incidentInfo.name_incident', // Sử dụng tên loại report thay vì ID
+          _id: '$incidentInfo.name_incident', 
           count: { $sum: 1 }
         }
       }
     ]);
 
     const result = {};
-    reportCounts.forEach((count) => {
+    incidentCounts.forEach((count) => {
       result[count._id] = count.count;
     });
 
@@ -257,5 +256,6 @@ module.exports = {
   getReportByIdstatus,
   getReportByDate,
   getReportCountByStatus,
-  getReportCountByIncident
+  getReportCountByIncident,
+  getReportByMonth
 }

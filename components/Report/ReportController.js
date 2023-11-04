@@ -29,12 +29,20 @@ const getReportByIdstatus = async (status) => {
         return null;
     }
 }
-const getReportByDate = async (report_date) => {
+const getReportByDate = async () => {
     try {
-        return await ReportService.getReportByDate(report_date);
+        return await ReportService.getReportByDate();
     } catch (error) {
         return null;
     }
+}
+
+const getReportByMonth = async () =>{
+try {
+    return await ReportService.getReportByMonth();
+} catch (error) {
+    return null;
+}
 }
 
 const getReportCountByStatus = async () => {
@@ -87,5 +95,6 @@ module.exports = {
     getReportByIdstatus,
     getReportByDate,
     getReportCountByStatus,
-    getReportCountByIncident
+    getReportCountByIncident,
+    getReportByMonth
 }
