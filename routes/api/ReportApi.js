@@ -76,28 +76,6 @@ router.get('/get-count-by-incident', async (req, res, next) => {
     }
 });
 
-// http://localhost:3000/api/report/getReportByDate
-router.get('/getReportByDate', async (req, res, next) => {
-    try {
-        const sevenDaysAgo = await ReportController.getReportByDate();
-        return res.status(200).json({ result: true, sevenDaysAgo });
-    } catch (error) {
-        console.log("Get count by incident error: ", error);
-        return res.status(500).json({ result: false, sevenDaysAgo: null });
-    }
-});
-
-// http://localhost:3000/api/report/getReportByMonth
-router.get('/getReportByMonth', async (req, res, next) => {
-    try {
-        const reportMonth = await ReportController.getReportByMonth();
-        return res.status(200).json({ result: true, reportMonth });
-    } catch (error) {
-        console.log("Get count by incident error: ", error);
-        return res.status(500).json({ result: false, reportMonth: null });
-    }
-});
-
 
 // http://localhost:3000/api/report/delete-by-id/:id
 router.delete('/delete-by-id/:id', async (req, res, next) => {

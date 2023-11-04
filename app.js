@@ -15,7 +15,6 @@ var indexRouter = require('./routes/index');
 const userRouter = require('./routes/cpanel/userCpanel');
 const incidentRouter = require('./routes/cpanel/incidentCpanel');
 const reportRouter = require('./routes/cpanel/reportCpanel');
-const statisticRouter = require('./routes/cpanel/statisticCpanel');
 
 
 
@@ -47,7 +46,6 @@ app.use('/', indexRouter);
 app.use('/cpanel/userCpanel', userRouter);
 app.use('/cpanel/incidentCpanel', incidentRouter);
 app.use('/cpanel/reportCpanel', reportRouter);
-app.use('/cpanel/statisticsCpanel', statisticRouter);
 
 
 
