@@ -53,6 +53,19 @@ router.get('/get-by-idstatus', async (req, res, next) => {
         return res.status(500).json({ result: false, report: null });
     }
 });
+// http://localhost:3000/api/report/get-by-vs2?
+// api get report by status
+router.get('/get-by-vs2', async (req, res, next) => {
+    try {
+        const { user } = req.query;
+        const { status } = req.query;
+        const report = await ReportController.getReport_vs2(user, status);
+        return res.status(200).json({ result: true, report: report });
+    } catch (error) {
+        console.log("Get by idstatus error: ", error);
+        return res.status(500).json({ result: false, report: null });
+    }
+});
 // http://localhost:3000/api/report/delete-by-id/:id
 router.delete('/delete-by-id/:id', async (req, res, next) => {
     try {

@@ -30,6 +30,15 @@ const getReportByIduser = async (user) => {
     return null;
   }
 }
+const getReport_vs2 = async (user, status) => {
+  try {
+    return await ReportModel.find({user:user, status_report:status}).populate('incident','name_incident ').populate('status_report','name_status')
+
+  } catch (error) {
+    console.log('Get reports by iduser error', error);
+    return null;
+  }
+}
 const getReportByIdstatus = async (status) => {
   try {
     return await ReportModel.find({status_report:status})
@@ -87,4 +96,4 @@ const updateReporttById = async (id, room, image, rating,status_report, descript
 
 
 
-module.exports = { getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById,getReportByIduser ,getReportByIdstatus}
+module.exports = { getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById,getReportByIduser ,getReportByIdstatus, getReport_vs2 }

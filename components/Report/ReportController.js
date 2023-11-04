@@ -29,6 +29,13 @@ const getReportByIdstatus = async(status)=>{
         return null;
     }
 }
+const getReport_vs2 = async(user,status)=>{
+    try {
+        return await ReportService.getReport_vs2(user, status);
+    } catch (error) { 
+        return null;
+    }
+}
 const deleteReportById = async (id) => {
     try {
         return await ReportService.deleteReportById(id);
@@ -54,4 +61,4 @@ const updateReporttById = async(id, room, image, rating,status_report, descripti
     }
 }
 
-module.exports = { getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus}
+module.exports = { getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus, getReport_vs2}
