@@ -112,12 +112,16 @@ router.delete('/delete-by-id/:id', async (req, res, next) => {
 });
 // http://localhost:3000/api/report/add-new
 // api 
-router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => {
+router.post('/add-new', [UploadFile.array('image', 2)], async (req, res, next) => {
     try {
-        let { file, body } = req;
-        if (file) {
-            file = `http://192.168.1.72:3000/images/${file.filename}`;
-            body = { ...body, image: file };
+        let { files, body } = req;
+        if (files && files.length > 0) {
+            const links = [];
+            for (let index = 0; index < files.length; index++) {
+                const element = files[index];
+                links.push(`http://10.22.39.52:3000/images/${element.filename}`);
+            }
+            body = { ...body, image: links };
         }
         const { room, image, rating, status_report, description, date, incident, user } = body;
         await ReportController.addNewReport(room, image, rating, status_report, description, date, incident, user);
@@ -169,11 +173,12 @@ router.post('/upload-image', [UploadFile.single('image')], async (req, res, next
 router.post('/upload-images', [UploadFile.array('image', 2)], async (req, res, next) => {
     try {
         const { files } = req;
+        console.log("fileee" , files);
         if (files && files.length > 0) {
             const links = [];
             for (let index = 0; index < files.length; index++) {
                 const element = files[index];
-                links.push = `http://192.168.1.72:3000/images/${element.filename}`;
+                links.push(`http://10.22.39.52:3000/images/${element.filename}`);
             }
 
             return res.status(200).json({ result: true, links: links });
