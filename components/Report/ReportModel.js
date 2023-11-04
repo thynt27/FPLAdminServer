@@ -9,7 +9,7 @@ const moment = require('moment');
 const reportSchema = new Schema({
     id: { type: ObjectId },
     room: { type: String },
-    image: { type: String },
+    image: [{type: String}],
     verificationToken: String,
     rating:
 
