@@ -67,7 +67,7 @@ router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => 
     try {
         let { file, body } = req;
         if (file) {
-            file = `http://192.168.101.47:3000/images/${file.filename}`;
+            file = `http://192.168.2.144:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
         const { room, image, rating,status_report, description, date,incident,user} = body;
@@ -78,20 +78,32 @@ router.post('/add-new', [UploadFile.single('image')], async (req, res, next) => 
         return res.status(500).json({ result: false, report: null });
     }
 });
-
-
-// http://localhost:3000/api/report/edit-new/:id
+//http://localhost:3000/api/report/update-star
+router.post('/update-star/:id', async(req,res,next)=>{
+    try {
+        let {body}=req;
+        let {id}=req.params;
+        const{star,rating_description}=body;
+        const report=await ReportController.updateStarHandler(id,star,rating_description);
+        return res.status(200).json({result:true,report:report});
+    } catch (error) {
+        console.log("Edit new product error: ", error);
+        return res.status(500).json({ result: false, report: null });
+        
+    }
+})
+// http://localhost:3000/api/report/edit-new/
 // api 
 router.post('/edit-new/:id', [UploadFile.single('image')], async (req, res, next) => {
     try {
         let { file, body } = req;
         let { id } = req.params;
         if (file) {
-            file = `http://192.168.101.47:3000/images/${file.filename}`;
+            file = `http://192.168.1.219:3000/images/${file.filename}`;
             body = { ...body, image: file };
         }
-        const {room, image, rating,status_report, description,reciver, incident, user } = body;
-        const report = await ReportController.updateReporttById(id, room, image, rating,status_report, description,reciver, incident, user                                                                                                                    );
+        const {room, image, rating,status_report, description,reciver, incident,user } = body;
+        const report = await ReportController.updateReporttById(id, room, image, rating,status_report, description,reciver, incident, user);
         return res.status(200).json({ result: true, report: report });
     } catch (error) {
         console.log("Edit new product error: ", error);
@@ -104,7 +116,7 @@ router.post('/upload-image', [UploadFile.single('image')], async (req, res, next
     try {
         const { file } = req;
         if (file) {
-            const link =`http://192.168.252.144:3000/images/${file.filename}`;
+            const link =`http://192.168.1.219:3000/images/${file.filename}`;
             return res.status(200).json({ result: true, link: link });
         }
 

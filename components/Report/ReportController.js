@@ -53,5 +53,13 @@ const updateReporttById = async(id, room, image, rating,status_report, descripti
         return false;
     }
 }
+const updateStarHandler = async (id, star,rating_description) => {
+    try {
+        return await ReportService.updateStar(id, star,rating_description);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+  };
 
-module.exports = { getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus}
+module.exports = { updateStarHandler,getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus}

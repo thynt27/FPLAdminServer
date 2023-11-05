@@ -1,11 +1,12 @@
 
 const ReportModel = require('./ReportModel');
-
+// /{ status_report: { $ne: "653b8473900c3796a66d6642" } }
 const getAllReport = async () => {
   try {
     return await ReportModel.find().populate('incident','name_incident ')
     .populate('user','name')
-    .populate('status_report','name_status');
+    .populate('status_report','name_status')
+    .sort({  date:-1,status_report: 1 });
   } catch (error) {
     console.log('Get all reports error', error);
     throw error;
@@ -74,6 +75,7 @@ const updateReporttById = async (id, room, image, rating,status_report, descript
       item.receiver = receiver ? receiver : item.receiver;
       item.incident = incident ? incident : item.incident;
       item.user = user ? user : item.user;
+      // item.rating.star = star !== undefined ? star : item.rating.star;
       await item.save();
       return true;
     }
@@ -83,7 +85,25 @@ const updateReporttById = async (id, room, image, rating,status_report, descript
     return false;
   }
 }
+const updateStar = async (id, star,rating_description) => {
+  try {
+    const item = await ReportModel.findById(id);
+    if(item)
+    {
+      item.rating.star = star ? star:item.rating.star;
+      item.rating.rating_description = rating_description? rating_description:item.rating.rating_description;
+      await item.save();
+      return true;
+      
+      
+    }
+
+    return false;
+  } catch (error) {
+    return false;
+    throw error;
+  }
+};
 
 
-
-module.exports = { getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById,getReportByIduser ,getReportByIdstatus}
+module.exports = { updateStar,getAllReport, getReportById, deleteReportById, addNewReport, updateReporttById,getReportByIduser ,getReportByIdstatus}

@@ -11,8 +11,9 @@ const reportSchema = new Schema({
     rating: 
     
         {
-            rating_description: String,
-            rating_date: { type: Date, default: Date.now }
+            rating_description: {type:String},
+            rating_date: { type: Date, default: Date.now },
+            star:{type:Number,default:0}
         },
     
     status_report: { type: ObjectId,default:"653b8409900c3796a66d6640",ref:'status'},
