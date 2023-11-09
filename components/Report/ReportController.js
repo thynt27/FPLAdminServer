@@ -6,57 +6,26 @@ const getAllReport = async () => {
     } catch (error) {
         throw error;
     }
-
+    
 }
-const getReportById = async (id) => {
+const getReportById = async(id)=>{
     try {
         return await ReportService.getReportById(id);
-    } catch (error) {
+    } catch (error) { 
         return null;
     }
 }
-const getReportByIduser = async (user) => {
+const getReportByIduser = async(user)=>{
     try {
         return await ReportService.getReportByIduser(user);
-    } catch (error) {
+    } catch (error) { 
         return null;
     }
 }
-const getReportByIdstatus = async (status) => {
+const getReportByIdstatus = async(status)=>{
     try {
         return await ReportService.getReportByIdstatus(status);
-    } catch (error) {
-        return null;
-    }
-}
-const getReportByDate = async () => {
-    try {
-        return await ReportService.getReportByDate();
-    } catch (error) {
-        return null;
-    }
-}
-
-const getReportByMonth = async () =>{
-try {
-    return await ReportService.getReportByMonth();
-} catch (error) {
-    return null;
-}
-}
-
-const getReportCountByStatus = async () => {
-    try {
-        return await ReportService.getReportCountByStatus();
-    } catch (error) {
-        return null;
-    }
-}
-
-const getReportCountByIncident = async () => {
-    try {
-        return await ReportService.getReportCountByIncident();
-    } catch (error) {
+    } catch (error) { 
         return null;
     }
 }
@@ -66,35 +35,31 @@ const deleteReportById = async (id) => {
     } catch (error) {
         throw error;
     }
-
+   
 }
 
-const addNewReport = async (room, image, rating, status_report, description, date, incident, user) => {
+const addNewReport = async(room, image, rating,status_report, description, date,incident,user)=>{
     try {
-        return await ReportService.addNewReport(room, image, rating, status_report, description, date, incident, user);
+        return await ReportService.addNewReport(room, image, rating,status_report, description, date,incident,user);
     } catch (error) {
         return false;
     }
 }
-const updateReporttById = async (id, room, image, rating, status_report, description, receiver, incident, user) => {
+const updateReporttById = async(id, room, image, rating,status_report, description,receiver,incident, user)=>{
     try {
-        return await ReportService.updateReporttById(id, room, image, rating, status_report, description, receiver, incident, user);
+        return await ReportService.updateReporttById(id, room, image, rating,status_report, description,receiver,incident, user);
     } catch (error) {
         console.log(error);
         return false;
     }
 }
+const updateStarHandler = async (id, star,rating_description) => {
+    try {
+        return await ReportService.updateStar(id, star,rating_description);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+  };
 
-module.exports = {
-    getAllReport,
-    getReportById,
-    deleteReportById,
-    addNewReport,
-    updateReporttById,
-    getReportByIduser,
-    getReportByIdstatus,
-    getReportByDate,
-    getReportCountByStatus,
-    getReportCountByIncident,
-    getReportByMonth
-}
+module.exports = { updateStarHandler,getAllReport,getReportById, deleteReportById, addNewReport ,updateReporttById,getReportByIduser,getReportByIdstatus}
