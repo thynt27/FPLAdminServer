@@ -118,16 +118,44 @@
                         <hr class="dropdown-divider">
                     </li>
 
-
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="/img/messages-1.jpg" class="rounded-circle">
+                            <div>
+                                <h4>Maria Hudson</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>4 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="/public/img/messages-2.jpg" alt="" class="rounded-circle">
+                            <div>
+                                <h4>Anna Nelson</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>6 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
-
+                    <li class="message-item">
+                        <a href="#">
+                            <img src="/public/img/messages-3.jpg" alt="" class="rounded-circle">
+                            <div>
+                                <h4>David Muldon</h4>
+                                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                <p>8 hrs. ago</p>
+                            </div>
+                        </a>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -144,8 +172,8 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
-                </a><!-- End Profile Image Icon -->
+                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
@@ -208,7 +236,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="#">
+            <a class="nav-link " href="index.html">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -229,6 +257,7 @@
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
+
 
         <li class="nav-heading">Pages</li>
 
@@ -260,46 +289,124 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>User</h1>
+        <h1>Statistic</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Statistic</li>
+            </ol>
+        </nav>
     </div><!-- End Page Title -->
-    <a href="/newUser" class="btn btn-primary mb-3 ">Tạo tài khoản</a>
+
+
     <section class="section">
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Thông tin người dùng</h5>
+                        <h5 class="card-title">Loại sự cố</h5>
 
                         <!-- Table with hoverable rows -->
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Tên sự cố</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#each users}}
+                                {{#each incidentCounts}}
                                 <tr>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.email}}</td>
-                                    <td> {{this.role}}
-                                    </td>
-                                    <td>
-                                        <img src="{{this.image}}" alt="" width="100" height="100">
-                                    </td>
+                                    <td>{{@key}}</td>
+                                    <td>{{this}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <!-- End Table with hoverable rows -->
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Loại Trạng thái</h5>
 
-                                    <td>
-                                        {{#if this.isActive}}
-                                        <button class="btn btn-primary" onclick="disableAccount('{{this._id}}')">Inactive</button>
-                                        {{else}}
-                                        <button  class="btn btn-success" onclick="enableAccount('{{this._id}}')">Active</button>
-                                        {{/if}}
-                                        <a onclick="confirmDelete('{{this._id}}')" class="btn btn-danger">Delete</a>
-                                    </td>
+                        <!-- Table with hoverable rows -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each statusCounts}}
+                                <tr>
+                                    <td>{{@key}}</td>
+                                    <td>{{this}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <!-- End Table with hoverable rows -->
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">7 ngày gần nhất</h5>
+
+                        <!-- Table with hoverable rows -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sự cố</th>
+                                    <th scope="col">Ngày báo cáo</th>
+                                    <th scope="col">Người gửi</th>
+                                    <th scope="col">Trạng thái</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each sevenDaysAgo}}
+                                <tr>
+                                    <td>{{this.nameIncident}}</td>
+                                    <td>{{this.reportDate}}</td>
+                                    <td>{{this.userName}}</td>
+                                    <td>{{this.statusReport}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <!-- End Table with hoverable rows -->
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Trong tháng này</h5>
+
+                        <!-- Table with hoverable rows -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sự cố</th>
+                                    <th scope="col">Ngày báo cáo</th>
+                                    <th scope="col">Người gửi</th>
+                                    <th scope="col">Trạng thái</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each reportMonth}}
+                                <tr>
+                                    <td>{{this.nameIncident}}</td>
+                                    <td>{{this.reportDate}}</td>
+                                    <td>{{this.userName}}</td>
+                                    <td>{{this.statusReport}}</td>
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -311,6 +418,7 @@
             </div>
         </div>
     </section>
+
 </main>
 <!-- End #main -->
 
@@ -320,35 +428,28 @@
         return res.json();
     }
 
-
-
-    const deleteUser = async (id) => {
-        const url = `http://localhost:3000/cpanel/userCpanel/deleteUser/${id}`;
+    const deleteProduct = async (_id) => {
+        const url = `/cpanel/productCpanel/${_id}/delete`;
         const option = {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }
+        try {
+            const res = await fetchAPI(url, option);
+            if (res.result) {
+                window.location.reload();
+            }
+            else {
+                swal("Lỗi!", "Không thể xóa sản phẩm này!", "error");
             }
         }
-        const res = await fetchAPI(url, option);
-        if (res.status) {
-            swal("Xóa thành công!", {
-                icon: "success",
-
-            });
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
-
-        } else {
-            swal("Xóa thất bại!", {
-                icon: "error",
-            });
-
+        catch (err) {
+            console.log(err);
+            swal("Lỗi!", "Không thể xóa sản phẩm này!", "error");
         }
     }
 
-    const confirmDelete = (id) => {
+    const confirmDelete = (_id) => {
         swal({
             title: "Xác nhận xóa",
             text: "Bạn có chắc chắn muốn xóa sản phẩm này không?",
@@ -358,62 +459,9 @@
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    deleteUser(id);
+                    deleteProduct(_id);
                 }
             });
-    }
-
-    const disableAccount = async (id) => {
-        const url = `http://localhost:3000/cpanel/userCpanel/disable/${id}`;
-        const option = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await fetchAPI(url, option);
-        if (res.status) {
-            swal("Vô hiệu hóa thành công!", {
-                icon: "success",
-
-            });
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
-
-        } else {
-            swal("Vô hiệu hóa thất bại!", {
-                icon: "error",
-            });
-            console.log(res);
-
-        }
-    }
-
-    const enableAccount = async (id) => {
-        const url = `http://localhost:3000/cpanel/userCpanel/enable/${id}`;
-        const option = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const res = await fetchAPI(url, option);
-        if (res.status) {
-            swal("Kích hoạt thành công!", {
-                icon: "success",
-
-            });
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
-
-        } else {
-            swal("Kích hoạt thất bại!", {
-                icon: "error",
-            });
-
-        }
     }
 
 </script>

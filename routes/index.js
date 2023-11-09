@@ -48,6 +48,20 @@ router.get('/report', async (req, res, next) => {
   //res.render('report/reportList', { title: 'FPLAdmin' });
 });
 
+router.get('/statistic', async (req, res, next) => {
+  try {
+    const incidentCounts = await ReportController.getReportCountByIncident();
+    const statusCounts = await ReportController.getReportCountByStatus();
+    const sevenDaysAgo = await ReportController.getReportByDate();
+    const reportMonth = await ReportController.getReportByMonth();
+    res.render('report/statistic', {incidentCounts: incidentCounts, statusCounts: statusCounts, sevenDaysAgo: sevenDaysAgo, reportMonth: reportMonth});
+
+  } catch (error) {
+    console.log("Get count by incident error: ", error);
+    next(error);
+  }
+});
+
 router.get('/newReport', function (req, res, next) {
   res.render('report/newReport', { title: 'FPLAdmin' });
 });

@@ -67,15 +67,6 @@ router.post('/addUser', async (req, res, next) => {
         const { name, email, password, role, image } = body;
         await userController.newUser(name, email, password, role, image);
         return res.status(200).json({ result: true, user: body });
-        // const { email, password, name, image, role } = req.body;
-        // const user = await userController.newUser(email, password, name, image, role);
-
-
-        // if (user) {
-        //     return res.status(200).json({ result: true, user: body });
-        // } else {
-        //     return res.status(400).json({ result: false, user: null, message: 'Register account fail' });
-        // }
 
     } catch (error) {
         console.log(error);
