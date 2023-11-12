@@ -84,6 +84,14 @@ const updateReporttById = async (id, room, image, rating, status_report, descrip
         return false;
     }
 }
+const updateStarHandler = async (id, star,rating_description) => {
+    try {
+        return await ReportService.updateStar(id, star,rating_description);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+  };
 
 module.exports = {
     getAllReport,
@@ -96,5 +104,6 @@ module.exports = {
     getReportByDate,
     getReportCountByStatus,
     getReportCountByIncident,
-    getReportByMonth
+    getReportByMonth,
+    updateStarHandler
 }
